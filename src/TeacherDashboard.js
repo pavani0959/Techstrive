@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UploadQuiz from "./UploadQuiz";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./TeacherDashboard.css";
 
 const TeacherDashboard = () => {
   const [file, setFile] = useState(null);
@@ -35,54 +35,38 @@ const TeacherDashboard = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="teacher-dashboard-container">
       {activeSection === "dashboard" ? (
-        // ** Main Dashboard**
-        <div className="card shadow-lg p-4 text-center" style={{ width: "400px", borderRadius: "15px" }}>
-          <h2 className="mb-4 fw-bold">📚 Teacher Dashboard</h2>
+        <div className="teacher-dashboard-card">
+          <h2 className="teacher-dashboard-title">📚 Teacher Dashboard</h2>
 
-          <div className="d-grid gap-3">
-            {/* Upload Quiz */}
-            <button className="btn btn-outline-primary py-2 fw-semibold" onClick={() => setActiveSection("uploadQuiz")}>
+          <div className="teacher-dashboard-grid">
+            <button className="dashboard-btn" onClick={() => setActiveSection("uploadQuiz")}>
               Upload Quiz
             </button>
-
-            {/* Check Student Results */}
-            <button className="btn btn-outline-success py-2 fw-semibold">Check Student Results</button>
-
-            {/* Check Assignments */}
-            <button className="btn btn-outline-warning py-2 fw-semibold">Check Assignments</button>
-
-            {/* Reply to Doubts */}
-            <button className="btn btn-outline-info py-2 fw-semibold">Reply to Doubts</button>
-
-            {/* Give Feedback */}
-            <button className="btn btn-outline-dark py-2 fw-semibold">Give Feedback</button>
-
-            {/* Upload Notes */}
-            <button className="btn btn-outline-secondary py-2 fw-semibold">Upload Notes</button>
-
-            {/* Upload Assignment */}
-            <button className="btn btn-outline-danger py-2 fw-semibold" onClick={() => setActiveSection("uploadAssignment")}>
+            <button className="dashboard-btn">Check Student Results</button>
+            <button className="dashboard-btn">Check Assignments</button>
+            <button className="dashboard-btn">Reply to Doubts</button>
+            <button className="dashboard-btn">Give Feedback</button>
+            <button className="dashboard-btn">Upload Notes</button>
+            <button className="dashboard-btn" onClick={() => setActiveSection("uploadAssignment")}>
               Upload Assignment
             </button>
           </div>
         </div>
       ) : (
-        // ** Show Active Section**
-        <div className="card shadow-lg p-4 text-center" style={{ width: "500px", borderRadius: "15px" }}>
-          <button className="btn btn-secondary mb-3" onClick={() => setActiveSection("dashboard")}>
+        <div className="teacher-dashboard-card">
+          <button className="back-btn" onClick={() => setActiveSection("dashboard")}>
             ⬅ Back to Dashboard
           </button>
 
-          {/* Show Components Based on User Selection */}
           {activeSection === "uploadQuiz" && <UploadQuiz />}
 
           {activeSection === "uploadAssignment" && (
             <div>
               <h4 className="mb-3">Upload Assignment</h4>
               <input type="file" onChange={handleFileChange} className="form-control mb-3" />
-              <button className="btn btn-primary w-100" onClick={handleUpload} disabled={uploading}>
+              <button className="dashboard-btn" onClick={handleUpload} disabled={uploading}>
                 {uploading ? "Uploading..." : "Upload"}
               </button>
               {message && <p className="mt-3">{message}</p>}
